@@ -4,11 +4,15 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -16,12 +20,13 @@ export class AuthGuard implements CanActivate {
 
     if (!token) {
       throw new UnauthorizedException(
-        `User has no permission to perform. In order to do that, you must be logged in.`,
+        `User has no permission to perform that action. In order to do that, you must be logged in.`,
       );
     }
 
+    const secret = this.configService.get<string>('JWT_SECRET');
     const payload = await this.jwtService.verifyAsync(token, {
-      secret: process.env.secret,
+      secret,
     });
     request['user'] = payload;
 
