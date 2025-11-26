@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Expense } from 'src/entities/expenses.entity';
 import { Repository } from 'typeorm';
@@ -40,5 +44,15 @@ export class ExpenseService {
     query.orderBy('expense.date', 'DESC');
 
     return await query.getMany();
+  }
+
+  async updateExpense(id: number, userId: number, attrs: Partial<Expense>) {
+    const expense = await this.repo.findOneBy({ id, userId });
+
+    if (!expense)
+      throw new NotFoundException('Expense not found or permission denied.');
+
+    Object.assign(expense, attrs);
+    return this.repo.save(expense);
   }
 }
