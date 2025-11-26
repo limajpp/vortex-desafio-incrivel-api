@@ -5,6 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { User } from './entities/user.entity';
+import { ExpenseModule } from './expenses/expense.module';
+import { Expense } from './entities/expenses.entity';
 
 @Module({
   imports: [
@@ -19,9 +21,10 @@ import { User } from './entities/user.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User],
+      entities: [User, Expense],
       synchronize: true,
     }),
+    ExpenseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
