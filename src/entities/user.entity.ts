@@ -24,20 +24,5 @@ export class User {
   password: string;
 
   @OneToMany(() => Expense, (expense) => expense.user)
-  expenses: Expense[]
-
-  @AfterInsert()
-  logInsert() {
-    console.log(`User ${this.name} has been ceated!`);
-  }
-
-  @AfterRemove()
-  logRemove() {
-    console.log(`User ${this.name} has been removed!`);
-  }
-
-  @AfterUpdate()
-  logUpdate() {
-    console.log(`User ${this.name} has been updated!`);
-  }
+  expenses: Expense[];
 }
