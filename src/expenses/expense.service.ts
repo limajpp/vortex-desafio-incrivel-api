@@ -55,4 +55,13 @@ export class ExpenseService {
     Object.assign(expense, attrs);
     return this.repo.save(expense);
   }
+
+  async deleteExpense(userId: number, id: number) {
+    const expense = await this.repo.findOneBy({ id, userId });
+
+    if (!expense)
+      throw new NotFoundException('Expense not found or permission denied.');
+
+    return this.repo.remove(expense);
+  }
 }

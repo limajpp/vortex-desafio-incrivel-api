@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -62,5 +63,11 @@ export class ExpenseController {
     }
 
     return this.serv.updateExpense(id, userId, updateData);
+  }
+
+  @Delete('/:id')
+  deleteExpense(@Param('id') id: number, @Request() req) {
+    const userId = req.user.sub;
+    return this.serv.deleteExpense(userId, id);
   }
 }
