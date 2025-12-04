@@ -11,6 +11,8 @@ export class UpdateExpenseDTO {
   @IsOptional()
   @Min(0.01)
   @Max(99999999.99, { message: 'Amount is too large (max: 99,999,999.99)' })
+  amount: number;
+
   @IsOptional()
   date?: string;
 }
