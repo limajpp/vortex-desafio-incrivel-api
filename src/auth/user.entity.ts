@@ -1,13 +1,5 @@
-import {
-  AfterInsert,
-  AfterRemove,
-  AfterUpdate,
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Expense } from './expenses.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Expense } from '../expenses/expenses.entity';
 
 @Entity({ name: 'users' })
 export class User {

@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from './user.entity';
+import { User } from '../auth/user.entity';
 
 @Entity('expenses')
 export class Expense {
@@ -18,7 +18,7 @@ export class Expense {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   amount: number;
 
-  @Column()
+  @Column({ type: 'date' })
   date: Date;
 
   @Column()

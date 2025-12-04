@@ -23,12 +23,10 @@ export class ExpenseController {
 
   @Post()
   createExpense(@Body() body: CreateExpenseDTO, @Request() req) {
-    const fixedDate = new Date(`${body.date}T12:00:00`);
-
     return this.serv.addExpense(
       body.description,
       body.amount,
-      fixedDate,
+      body.date,
       Number(req.user.sub),
     );
   }
@@ -57,12 +55,8 @@ export class ExpenseController {
     }
 
     const userId = req.user.sub;
-    const updateData: any = { ...body };
-    if (body.date) {
-      updateData.date = new Date(`${body.date}T12:00:00`);
-    }
 
-    return this.serv.updateExpense(id, userId, updateData);
+    return this.serv.updateExpense(id, userId, body as any);
   }
 
   @Delete('/:id')

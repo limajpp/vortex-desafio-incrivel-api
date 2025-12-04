@@ -4,9 +4,9 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { User } from './entities/user.entity';
+import { User } from './auth/user.entity';
 import { ExpenseModule } from './expenses/expense.module';
-import { Expense } from './entities/expenses.entity';
+import { Expense } from './expenses/expenses.entity';
 
 @Module({
   imports: [

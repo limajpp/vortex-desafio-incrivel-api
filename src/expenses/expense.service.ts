@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Expense } from 'src/entities/expenses.entity';
+import { Expense } from 'src/expenses/expenses.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class ExpenseService {
   async addExpense(
     description: string,
     amount: number,
-    date: Date,
+    date: string,
     userId: number,
   ) {
     if (!description || !amount || !date)
