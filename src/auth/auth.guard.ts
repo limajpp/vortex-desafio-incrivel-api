@@ -24,17 +24,27 @@ export class AuthGuard implements CanActivate {
       );
     }
 
-    const secret = this.configService.get<string>('JWT_SECRET');
-    const payload = await this.jwtService.verifyAsync(token, {
-      secret,
-    });
-    request['user'] = payload;
+    try {
+      const secret = this.configService.get<string>('JWT_SECRET');
+      const payload = await this.jwtService.verifyAsync(token, {
+        secret,
+      });
+      request['user'] = payload;
+    } catch (error) {
+      if (error.name === 'TokenExpiredError') {
+        throw new UnauthorizedException(
+          'Session expired. Please log in again.',
+        );
+      }
+
+      throw new UnauthorizedException(`Invalid token. Please log in again.`);
+    }
 
     return true;
   }
 
   private extractTokenFromHeader(request: {
-    headers: { authorization: { split: (arg0: string) => never[] } };
+    headers: { authorization?: string };
   }): string | undefined {
     const [type, token] = request.headers.authorization?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
