@@ -1,14 +1,10 @@
-import {
-  IsNumber,
-  IsOptional,
-  IsString,
-  Max,
-  Min,
-} from 'class-validator';
+import { IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsNoEmoji } from 'src/decorators/is-no-emoji.decorator';
 
 export class UpdateExpenseDTO {
   @IsString()
   @IsOptional()
+  @IsNoEmoji({ message: 'Description cannot contain emojis' })
   description?: string;
 
   @IsNumber()

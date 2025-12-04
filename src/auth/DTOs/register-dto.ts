@@ -5,6 +5,7 @@ import {
   IsStrongPassword,
 } from 'class-validator';
 import { IsName } from 'src/decorators/is-name.decorator';
+import { IsNoEmoji } from 'src/decorators/is-no-emoji.decorator';
 
 export class RegisterDto {
   @IsString()
@@ -18,5 +19,6 @@ export class RegisterDto {
 
   @IsString()
   @IsStrongPassword()
+  @IsNoEmoji({ message: 'Password cannot contain emojis' })
   password: string;
 }
