@@ -42,7 +42,7 @@ export class AuthService {
         `Password is incorrect. Please try again.`,
       );
 
-    const payload = { sub: user.id, userName: user.name };
+    const payload = { sub: user.id, username: user.email, name: user.name };
     return { access_token: await this.jwt.signAsync(payload) };
   }
 }

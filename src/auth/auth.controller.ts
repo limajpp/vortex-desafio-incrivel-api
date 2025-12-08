@@ -1,9 +1,17 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { RegisterDto } from './DTOs/register-dto';
 import { AuthService } from './auth.service';
 import { SerializeUser } from 'src/middlewares/user-serialization.interceptor';
 import { UserSerializationDTO } from './DTOs/user-serialization-dto';
 import { SignInDTO } from './DTOs/signIn-dto';
+import { AuthGuard } from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -18,5 +26,11 @@ export class AuthController {
   @Post('/signIn')
   signIn(@Body() body: SignInDTO) {
     return this.serv.logIn(body.email, body.password);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('profile')
+  getProfile(@Request() req) {
+    return req.user;
   }
 }
