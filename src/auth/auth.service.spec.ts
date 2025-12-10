@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { User } from '../entities/user.entity';
+import { User } from './user.entity';
 import { BadRequestException } from '@nestjs/common';
 
 jest.mock('bcrypt', () => ({
@@ -93,9 +93,11 @@ describe('AuthService', () => {
       const result = await service.logIn('test@email.com', '123456');
 
       expect(result).toEqual({ access_token: 'fake_token' });
+
       expect(jwtService.signAsync).toHaveBeenCalledWith({
         sub: 1,
-        userName: 'Test User',
+        username: 'test@email.com',
+        name: 'Test User',
       });
     });
 
