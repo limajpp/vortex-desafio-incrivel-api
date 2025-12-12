@@ -37,7 +37,7 @@ A maneira mais fácil de rodar este projeto é utilizando Docker Compose, que so
 ### Passo a Passo
 Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/vortex-api.git
+git clone https://github.com/seu-usuario/vortex-desafio-incrivel-api.git
 cd vortex-api
 ```
 
