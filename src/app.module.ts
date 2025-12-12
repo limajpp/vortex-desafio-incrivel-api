@@ -22,6 +22,13 @@ import { Expense } from './expenses/expenses.entity';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: [User, Expense],
+      synchronize: true,
+      ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
     }),
     ExpenseModule,
   ],
